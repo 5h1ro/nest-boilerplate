@@ -13,60 +13,58 @@ export class UserSeedService {
   ) {}
 
   async run() {
-    const countAdmin = await this.repository.count({
-      where: {
+    await this.repository.save(
+      this.repository.create({
+        firstName: 'Super',
+        lastName: 'Admin',
+        email: 'admin@example.com',
+        password: 'secret',
+        permission: ['files', 'users'],
         role: {
           id: RoleEnum.admin,
+          name: 'Admin',
         },
-      },
-    });
+        status: {
+          id: StatusEnum.active,
+          name: 'Active',
+        },
+      }),
+    );
 
-    if (countAdmin === 0) {
-      await this.repository.save(
-        this.repository.create({
-          firstName: 'Super',
-          lastName: 'Admin',
-          email: 'admin@example.com',
-          password: 'secret',
-          permission: ['files', 'users'],
-          role: {
-            id: RoleEnum.admin,
-            name: 'Admin',
-          },
-          status: {
-            id: StatusEnum.active,
-            name: 'Active',
-          },
-        }),
-      );
-    }
-
-    const countUser = await this.repository.count({
-      where: {
+    await this.repository.save(
+      this.repository.create({
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        password: 'secret',
+        permission: ['files'],
         role: {
           id: RoleEnum.user,
+          name: 'User',
         },
-      },
-    });
+        status: {
+          id: StatusEnum.active,
+          name: 'Active',
+        },
+      }),
+    );
 
-    if (countUser === 0) {
-      await this.repository.save(
-        this.repository.create({
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          password: 'secret',
-          permission: ['files'],
-          role: {
-            id: RoleEnum.user,
-            name: 'Admin',
-          },
-          status: {
-            id: StatusEnum.active,
-            name: 'Active',
-          },
-        }),
-      );
-    }
+    await this.repository.save(
+      this.repository.create({
+        firstName: 'John2',
+        lastName: 'Doe',
+        email: 'john.doe2@example.com',
+        password: 'secret',
+        permission: ['users'],
+        role: {
+          id: RoleEnum.user,
+          name: 'User',
+        },
+        status: {
+          id: StatusEnum.active,
+          name: 'Active',
+        },
+      }),
+    );
   }
 }

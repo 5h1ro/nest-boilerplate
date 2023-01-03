@@ -1,9 +1,5 @@
-import {
-  MiddlewareConsumer,
-  Module,
-  NestModule,
-  RequestMethod,
-} from '@nestjs/common';
+// import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { UsersModule } from './users/users.module';
 import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
@@ -32,7 +28,7 @@ import { ForgotModule } from './forgot/forgot.module';
 import { MailModule } from './mail/mail.module';
 import { HomeModule } from './home/home.module';
 import { DataSource } from 'typeorm';
-import { AuthMiddleware } from './middleware/auth.middleware';
+// import { AuthMiddleware } from './middleware/auth.middleware';
 
 @Module({
   imports: [
@@ -90,15 +86,15 @@ import { AuthMiddleware } from './middleware/auth.middleware';
     HomeModule,
   ],
 })
-export class AppModule implements NestModule {
-  prefix = 'api/v1/';
-  configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .exclude('', `${this.prefix}auth/(.*)`)
-      .forRoutes({
-        path: `*`,
-        method: RequestMethod.ALL,
-      });
-  }
+export class AppModule {
+  // prefix = 'api/v1/';
+  // configure(consumer: MiddlewareConsumer) {
+  //   consumer
+  //     .apply(AuthMiddleware)
+  //     .exclude('', `${this.prefix}auth/(.*)`)
+  //     .forRoutes({
+  //       path: `(.*)`,
+  //       method: RequestMethod.ALL,
+  //     });
+  // }
 }

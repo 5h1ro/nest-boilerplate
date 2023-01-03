@@ -16,6 +16,7 @@ import { FastifyFileInterceptor } from './files.interceptor';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utils/file-upload-util';
 import { Request } from 'express';
+import { AuthMiddlewareGuard } from 'src/auth/auth.guard';
 
 @ApiTags('Files')
 @Controller({
@@ -40,6 +41,7 @@ export class FilesController {
       },
     },
   })
+  @UseGuards(AuthMiddlewareGuard)
   @UseInterceptors(
     FastifyFileInterceptor('file', {
       storage: diskStorage({
