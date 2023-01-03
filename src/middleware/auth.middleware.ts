@@ -8,8 +8,10 @@ export class AuthMiddleware implements NestMiddleware {
   constructor(private readonly authService: AuthService) {}
   use(req: any, res: ServerResponse, next: NextFunction) {
     const path = req.originalUrl.split('/');
-    const prefix = path[3];
-
+    if (path[1] === 'docs') {
+      return next();
+    }
+    const prefix = path[3].split('?')[0];
     if (!req.headers.authorization) {
       res.writeHead(HttpStatus.UNAUTHORIZED, {
         'content-type': 'application/json',

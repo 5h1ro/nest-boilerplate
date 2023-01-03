@@ -16,7 +16,6 @@ import { FastifyFileInterceptor } from './files.interceptor';
 import { diskStorage } from 'multer';
 import { editFileName, imageFileFilter } from 'src/utils/file-upload-util';
 import { Request } from 'express';
-import { AuthMiddleware } from 'src/middleware/auth-middleware.decorator';
 
 @ApiTags('Files')
 @Controller({
@@ -51,7 +50,6 @@ export class FilesController {
     }),
   )
   async uploadFile(
-    @AuthMiddleware() middleware: Request,
     @Req() req: Request,
     @UploadedFile() file: Express.Multer.File,
   ) {
